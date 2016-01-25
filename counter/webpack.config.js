@@ -34,7 +34,7 @@ module.exports = {
 var reduxSrc = path.join(__dirname, '..', '..', 'src');
 var reduxNodeModules = path.join(__dirname, '..', '..', 'node_modules');
 var fs = require('fs');
-if (fs.existSync(reduxSrc) && fs.existSync(reduxNodeModules)) {
+if (fs.existsSync(reduxSrc) && fs.existsSync(reduxNodeModules)) {
   // Resolve Redux to source
   module.exports.resolve = { alias: { 'redux': reduxSrc } };
   // Compile Redux from source
