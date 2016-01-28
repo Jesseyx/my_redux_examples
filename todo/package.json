@@ -1,0 +1,22 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "todo demo",
+  "main": "index.js",
+  "scripts": {
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jesseyx/my_redux_examples.git"
+  },
+  "keywords": [
+    "redux"
+  ],
+  "author": "Jesse",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jesseyx/my_redux_examples/issues"
+  },
+  "homepage": "https://github.com/Jesseyx/my_redux_examples"
+}
