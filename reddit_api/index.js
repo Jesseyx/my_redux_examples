@@ -16,6 +16,7 @@ const createStoreWithMiddleware = applyMiddleware(
 const store = createStoreWithMiddleware(rootReducer);
 
 store.dispatch(selectSubreddit('reactjs'));
+store.dispatch(selectSubreddit('reactjs'));
 store.dispatch(fetchPosts('reactjs')).then(() => 
   console.log(store.getState())
 );
