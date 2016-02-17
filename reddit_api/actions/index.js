@@ -20,14 +20,14 @@ export function invalidateSubreddit(subreddit) {
   }
 }
 
-export function requestPosts(subreddit) {
+function requestPosts(subreddit) {
   return {
     type: REQUEST_POSTS,
     subreddit
   }
 }
 
-export function receivePosts(subreddit, json) {
+function receivePosts(subreddit, json) {
   return {
     type: RECEIVE_POSTS,
     subreddit,
@@ -39,7 +39,7 @@ export function receivePosts(subreddit, json) {
 // 在实际应用中，网络请求失败时也需要 dispatch action。虽然在本教程中我们并不做错误处理，但是这个 真实场景的案例 会演示一种实现方案。
 // export const REQUEST_ERROR = 'REQUEST_ERROR';
 
-export function fetchPosts(subreddit) {
+function fetchPosts(subreddit) {
   // Thunk middleware 知道如何处理函数。
   // 这里把 dispatch 方法通过参数的形式传给函数，以此来让它自己也能 dispatch action。
   return function (dispatch) {
@@ -61,6 +61,26 @@ export function fetchPosts(subreddit) {
       );
 
       // 在实际应用中，还需要捕获网络请求的异常。
+  }
+}
+
+export function fetchPostsIfNeeded(subreddit) {
+  // return function (dispatch, getState) {
+  return (dispatch, getState) => {
+    if (shouldFetchPosts(getState(), subreddit)) {
+      return dispatch(fetchPosts(subreddit));
+    }
+  }
+}
+
+function shouldFetchPosts(state, subreddit) {
+  const posts = state.postsBySubreddit[subreddit];
+  if (!posts) {
+    return true;
+  } else if (posts.isFetching) {
+    return false;
+  } else {
+    return posts.didInvalidate;
   }
 }
 
