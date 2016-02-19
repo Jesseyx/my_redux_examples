@@ -17,8 +17,13 @@ app.use('/static', Express.static(path.join(__dirname, '..', 'dist')));
 app.get('/', handleRender);
 
 function handleRender(req, res) {
+  const counter = parseInt(req.query.counter || 0);
+
+  // 得到初始 state
+  let initialState = { counter };
+
   // 创建新的 Redux store 实例
-  const store = configureStore();
+  const store = configureStore(initialState);
 
   // 把组件渲染成字符串
   const html = renderToString(
@@ -28,10 +33,10 @@ function handleRender(req, res) {
   );
 
   // 从 store 中获得初始 state
-  const initialState = store.getState();
+  const finalState = store.getState();
 
   // 把渲染后的页面内容发送给客户端
-  res.send(renderFullPage(html, initialState));
+  res.send(renderFullPage(html, finalState));
 }
 function renderFullPage(html, initialState) {
   return `
