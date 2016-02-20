@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import configureStore from '../store/configureStore';
 import App from '../containers/App';
+import { fetchCounter } from '../api/counter'
 
 const app = Express();
 const port = 3000;
@@ -17,26 +18,29 @@ app.use('/static', Express.static(path.join(__dirname, '..', 'dist')));
 app.get('/', handleRender);
 
 function handleRender(req, res) {
-  const counter = parseInt(req.query.counter || 0);
+  // 异步请求模拟的 API
+  fetchCounter(apiResult => {
+    const counter = parseInt(req.query.counter || apiResult || 0);
 
-  // 得到初始 state
-  let initialState = { counter };
+    // 得到初始 state
+    let initialState = { counter };
 
-  // 创建新的 Redux store 实例
-  const store = configureStore(initialState);
+    // 创建新的 Redux store 实例
+    const store = configureStore(initialState);
 
-  // 把组件渲染成字符串
-  const html = renderToString(
-    <Provider store={ store }>
-      <App />
-    </Provider>
-  );
+    // 把组件渲染成字符串
+    const html = renderToString(
+      <Provider store={ store }>
+        <App />
+      </Provider>
+    );
 
-  // 从 store 中获得初始 state
-  const finalState = store.getState();
+    // 从 store 中获得初始 state
+    const finalState = store.getState();
 
-  // 把渲染后的页面内容发送给客户端
-  res.send(renderFullPage(html, finalState));
+    // 把渲染后的页面内容发送给客户端
+    res.send(renderFullPage(html, finalState));
+  });
 }
 function renderFullPage(html, initialState) {
   return `
