@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { VisibilityFilters } from './actions/action';
+import { VisibilityFilters } from '../actions/action';
 
 function selectTodos(todos, filter) {
   switch (filter) {
