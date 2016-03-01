@@ -5,11 +5,32 @@ const GITHUB_REPO = 'https://github.com/rackt/redux';
 export default class Explore extends Component {
   constructor(props) {
     super(props);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
     this.handleGoClick = this.handleGoClick.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setInputValue(nextProps.value);
+    }
   }
 
   getInputValue() {
     return this.refs.input.value;
+  }
+
+  setInputValue(val) {
+    // Generally mutating DOM is a bad idea in React components,
+    // but doing this for a single uncontrolled field is less fuss
+    // than making it controlled and maintaining a state for it.
+    this.refs.input.value = val;
+  }
+
+  handleKeyUp(e) {
+    if (e.keyCode === 13) {
+      // enter 键
+      this.handleGoClick();
+    }
   }
 
   handleGoClick() {
@@ -20,7 +41,10 @@ export default class Explore extends Component {
     return (
       <div>
         <p>Type a username or repo full name and hit 'Go':</p>
-        <input size="45" ref="input" />
+        <input size="45"
+               ref="input"
+               defaultValue={ this.props.value }
+               onKeyUp={ this.handleKeyUp } />
         <button onClick={ this.handleGoClick }>
           Go!
         </button>
@@ -36,5 +60,6 @@ export default class Explore extends Component {
 }
 
 Explore.propTypes = {
+  value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired
 };

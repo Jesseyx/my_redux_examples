@@ -6,8 +6,6 @@ import UserPage from './containers/UserPage';
 
 export default (
   <Route path="/" component={ App }>
-    <Route path="/:login/:name"
-           component={ RepoPage } />
     <Route path="/:login"
            component={ UserPage } />
   </Route>

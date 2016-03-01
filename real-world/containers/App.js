@@ -14,22 +14,31 @@ class App extends Component {
   }
 
   render() {
+    const { children, inputValue } = this.props;
+
     return (
       <div>
-        <Explore onChange={ this.handleChange } />
+        <Explore value={ inputValue }
+                 onChange={ this.handleChange } />
         <hr />
+
+        { children }
       </div>
     );
   }
 }
 
 App.propTypes = {
-  
+  // Injected by React Redux
+  errorMessage: PropTypes.string,
+  inputValue: PropTypes.string.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
   return {
-    
+    errorMessage: state.errorMessage,
+    // 获取浏览器地址
+    inputValue: ownProps.location.pathname.substring(1)
   }
 }
 
