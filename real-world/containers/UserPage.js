@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { loadUser, loadStarred } from '../actions';
 import User from '../components/User';
 
 function loadData(props) {
   const { login } = props;
+  // props.loadUser(login, [ 'name' ]);
+  // props.loadStarred(login);
 }
 
 class UserPage extends Component {
@@ -21,10 +24,9 @@ class UserPage extends Component {
       return <h1><i>Loading { login }’s profile...</i></h1>
     }
 
-
     return (
       <div>
-        
+        <User user={ user } />
         <hr />
       </div>
     );
@@ -32,15 +34,23 @@ class UserPage extends Component {
 }
 
 UserPage.propTypes = {
-
+  login: PropTypes.string.isRequired,
+  user: PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {
-  return {
+  const { login } = ownProps.params;
+  const {
+    entities: { users, repos }
+  } = state;
 
+  return {
+    login,
+    user: users[login]
   }
 }
 
 export default connect(mapStateToProps, {
-
+  loadUser,
+  loadStarred
 })(UserPage);
