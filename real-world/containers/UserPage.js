@@ -4,7 +4,6 @@ import User from '../components/User';
 
 function loadData(props) {
   const { login } = props;
-  console.log(login);
 }
 
 class UserPage extends Component {
