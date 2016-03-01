@@ -5,7 +5,7 @@ import User from '../components/User';
 
 function loadData(props) {
   const { login } = props;
-  // props.loadUser(login, [ 'name' ]);
+  props.loadUser(login, [ 'name' ]);
   // props.loadStarred(login);
 }
 
