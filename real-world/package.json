@@ -20,6 +20,8 @@
   "homepage": "https://github.com/Jesseyx/my_redux_examples",
   "dependencies": {
     "babel-polyfill": "^6.5.0",
+    "humps": "^1.0.0",
+    "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.5.1",
     "normalizr": "^2.0.0",
     "react": "^0.14.7",
