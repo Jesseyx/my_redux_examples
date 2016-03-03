@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { loadUser, loadStarred } from '../actions';
 import User from '../components/User';
+import List from '../components/List'
 
 function loadData(props) {
   const { login } = props;
@@ -28,6 +29,7 @@ class UserPage extends Component {
       <div>
         <User user={ user } />
         <hr />
+        <List />
       </div>
     );
   }

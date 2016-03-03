@@ -17,11 +17,13 @@ function callApi(endpoint, schema) {
         return Promise.reject(json);
       }
 
+      console.group('没有序列化为驼峰之前');console.log(json);console.groupEnd('没有序列化为驼峰之前');
       const camelizedJson = camelizeKeys(json);
-      console.log(camelizedJson);
+      console.group('序列化为驼峰之后');console.log(camelizedJson);console.groupEnd('序列化为驼峰之后');
+
       // const nextPageUrl = getNextPageUrl(response)
 
-      console.log(normalize(camelizedJson, schema));
+      console.group('经过schema转换后');console.log(normalize(camelizedJson, schema));console.groupEnd('经过schema转换后');
       return Object.assign({}, normalize(camelizedJson, schema), { });
     });
 }
@@ -51,9 +53,9 @@ export default store => next => action => {
   let { endpoint } = callAPI;
   const { schema, types } = callAPI;
 
-  // if (typeof endpoint === 'function') {
-  //   endpoint = endpoint(store.getState());
-  // }
+  if (typeof endpoint === 'function') {
+    endpoint = endpoint(store.getState());
+  }
 
   if (typeof endpoint !== 'string') {
     throw new Error('Specify a string endpoint URL.');
