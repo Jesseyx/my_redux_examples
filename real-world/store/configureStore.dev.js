@@ -6,21 +6,21 @@ import rootReducer from '../reducers';
 import DevTools from '../containers/DevTools';console.log(applyMiddleware);
 
 export default function configureStore(initialState) {
-  // const store = createStore(
-  //   rootReducer,
-  //   initialState,
-  //   compose(
-  //     applyMiddleware(thunk, api, createLogger()),
-  //     DevTools.instrument()
-  //   )
-  // );
+  const store = createStore(
+    rootReducer,
+    initialState,
+    compose(
+      applyMiddleware(thunk, api, createLogger()),
+      DevTools.instrument()
+    )
+  );
 
 
 
 
-  var createStoreWithMiddleware = applyMiddleware(thunk, api, createLogger())(createStore);
+  // var createStoreWithMiddleware = applyMiddleware(thunk, api, createLogger())(createStore);
 
-  var store = createStoreWithMiddleware(rootReducer, initialState);
+  // var store = createStoreWithMiddleware(rootReducer, initialState);
 
 
 
