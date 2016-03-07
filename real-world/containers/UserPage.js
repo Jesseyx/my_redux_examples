@@ -22,7 +22,7 @@ class UserPage extends Component {
     loadData(this.props);
   }
 
-  // 渲染以后控制吗？？？？？？？？
+  // 渲染以后控制吗？？？？？？？？ 是的，因为下面的 login  
   componentWillReceiveProps(nextProps) {
     if (nextProps.login !== this.props.login) {
       loadData(nextProps);
