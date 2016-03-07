@@ -4,6 +4,7 @@ import zip from 'lodash/zip';
 import { loadUser, loadStarred } from '../actions';
 import User from '../components/User';
 import List from '../components/List';
+import Repo from '../components/Repo';
 
 function loadData(props) {
   const { login } = props;
@@ -14,10 +15,26 @@ function loadData(props) {
 class UserPage extends Component {
   constructor(props) {
     super(props);
+    this.renderRepo = this.renderRepo.bind(this);
   }
 
-  componentWillMount() {
+  componentWillMount() {console.log('adadasda------------------------------------------------------------');
     loadData(this.props);
+  }
+
+  // 渲染以后控制吗？？？？？？？？
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.login !== this.props.login) {
+      loadData(nextProps);
+    }
+  }
+
+  renderRepo([repo, owner ]) {
+    return (
+      <Repo repo={ repo }
+            owner={ owner }
+            key={ repo.fullName } />
+    );
   }
 
   render() {
@@ -33,6 +50,7 @@ class UserPage extends Component {
         <hr />
         <List renderItem={ this.renderRepo }
               items={ zip(starredRepos, starredRepoOwners) }
+              loadingLabel={ `Loading ${login}’s starred...` }
               { ...starredPagination } />
       </div>
     );
@@ -58,7 +76,10 @@ function mapStateToProps(state, ownProps) {
   
   const starredPagination = starredByUser[login] || { ids: [] };            // 用户 starred key-object
   const starredRepos = starredPagination.ids.map(id => repos[id]);          // 用户 starred object-array
-  const starredRepoOwners = starredRepos.map(repo => users[repo.owner]);    // [ undefined, ... ]
+  const starredRepoOwners = starredRepos.map(repo => users[repo.owner]);    // [ 用户, ... ]
+  console.log('------------------------------------------------------------------------');
+  console.log(users);console.log(starredRepoOwners);
+  console.log('------------------------------------------------------------------------');
 
   return {
     login,
