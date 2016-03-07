@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import api from '../middleware/api';
 import rootReducer from '../reducers';
-import DevTools from '../containers/DevTools';console.log(applyMiddleware);
+import DevTools from '../containers/DevTools';
 
 export default function configureStore(initialState) {
   const store = createStore(
@@ -14,15 +14,16 @@ export default function configureStore(initialState) {
       DevTools.instrument()
     )
   );
+  
 
-
-
-
+  /* test */
   // var createStoreWithMiddleware = applyMiddleware(thunk, api, createLogger())(createStore);
-
   // var store = createStoreWithMiddleware(rootReducer, initialState);
-
-
+  // console.log(store.dispatch);
+  // store.dispatch({
+  //   type: 'TEST',
+  //   value: 'test'
+  // });
 
 
   return store;

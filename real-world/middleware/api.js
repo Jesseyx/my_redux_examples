@@ -32,9 +32,18 @@ const userSchema = new Schema('users', {
   idAttribute: 'login'
 });
 
+const repoSchema = new Schema('repos', {
+  idAttribute: 'fullName'
+});
+repoSchema.define({
+  owner: userSchema
+});
+
+
 // Schemas for Github API responses.
 export const Schemas = {
-  USER: userSchema
+  USER: userSchema,
+  REPO_ARRAY: arrayOf(repoSchema)
 };
 
 // Action key that carries API call info interpreted by this Redux middleware.

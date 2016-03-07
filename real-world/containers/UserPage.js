@@ -7,7 +7,7 @@ import List from '../components/List'
 function loadData(props) {
   const { login } = props;
   props.loadUser(login, [ 'name' ]);
-  // props.loadStarred(login);
+  props.loadStarred(login);
 }
 
 class UserPage extends Component {
