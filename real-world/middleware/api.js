@@ -3,6 +3,23 @@ import { Schema, arrayOf, normalize } from 'normalizr';
 import { camelizeKeys } from 'humps';
 import fetch from 'isomorphic-fetch';
 
+// Extracts the next page URL from Github API response.
+function getNextPageUrl(response) {
+  // 从响应头获取
+  const link = response.headers.get('link');
+  if (!link) {
+    return null;
+  }
+
+  const nextLink = link.split(',').find(s => s.indexOf('rel="next"') > -1);
+  if (!nextLink) {
+    return null;
+  }
+
+  return nextLink.split(';')[0].slice(1, -1);
+}
+
+
 const API_ROOT = 'https://api.github.com/';
 
 // Fetches an API response and normalizes the result JSON according to schema.
@@ -21,10 +38,10 @@ function callApi(endpoint, schema) {
       const camelizedJson = camelizeKeys(json);
       console.group('序列化为驼峰之后');console.log(camelizedJson);console.groupEnd('序列化为驼峰之后');
 
-      // const nextPageUrl = getNextPageUrl(response)
+      const nextPageUrl = getNextPageUrl(response);
 
       console.group('经过schema转换后');console.log(normalize(camelizedJson, schema));console.groupEnd('经过schema转换后');
-      return Object.assign({}, normalize(camelizedJson, schema), { });
+      return Object.assign({}, normalize(camelizedJson, schema), { nextPageUrl });
     });
 }
 

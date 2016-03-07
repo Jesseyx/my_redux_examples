@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import zip from 'lodash/zip';
 import { loadUser, loadStarred } from '../actions';
 import User from '../components/User';
-import List from '../components/List'
+import List from '../components/List';
 
 function loadData(props) {
   const { login } = props;
@@ -25,11 +26,14 @@ class UserPage extends Component {
       return <h1><i>Loading { login }’s profile...</i></h1>
     }
 
+    const { starredRepos, starredRepoOwners, starredPagination } = this.props;
     return (
       <div>
         <User user={ user } />
         <hr />
-        <List />
+        <List renderItem={ this.renderRepo }
+              items={ zip(starredRepos, starredRepoOwners) }
+              { ...starredPagination } />
       </div>
     );
   }
@@ -37,17 +41,30 @@ class UserPage extends Component {
 
 UserPage.propTypes = {
   login: PropTypes.string.isRequired,
-  user: PropTypes.object
+  user: PropTypes.object,
+  starredPagination: PropTypes.object,
+  starredRepos: PropTypes.array.isRequired,
+  starredRepoOwners: PropTypes.array.isRequired,
+  loadUser: PropTypes.func.isRequired,
+  loadStarred: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
   const { login } = ownProps.params;
   const {
-    entities: { users, repos }
+    entities: { users, repos },
+    pagination: { starredByUser }
   } = state;
+  
+  const starredPagination = starredByUser[login] || { ids: [] };            // 用户 starred key-object
+  const starredRepos = starredPagination.ids.map(id => repos[id]);          // 用户 starred object-array
+  const starredRepoOwners = starredRepos.map(repo => users[repo.owner]);    // [ undefined, ... ]
 
   return {
     login,
+    starredRepos,
+    starredRepoOwners,
+    starredPagination,
     user: users[login]
   }
 }

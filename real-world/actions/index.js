@@ -55,16 +55,16 @@ function fetchStarred(login, nextPageUrl) {
 // Relies on Redux Thunk middleware.
 export function loadStarred(login, nextPage) {
   return (dispatch, getState) => {
-    // const {
-    //   nextPageUrl = `users/${ login }/starred`,
-    //   pageCount = 0
-    // } = getState().pagination.starredByUser[login] || {};
+    const {
+      nextPageUrl = `users/${ login }/starred`,
+      pageCount = 0
+    } = getState().pagination.starredByUser[login] || {};
 
-    // if (pageCount > 0 && !nextPage) {
-    //   return null;
-    // }
+    if (pageCount > 0 && !nextPage) {
+      return null;
+    }
 
-    // return dispatch(fetchStarred(login, nextPageUrl));
+    return dispatch(fetchStarred(login, nextPageUrl));
   }
 }
 

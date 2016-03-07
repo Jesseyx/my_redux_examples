@@ -27,9 +27,16 @@ function errorMessage(state = null, action) {
 }
 
 // Updates the pagination data for different actions.
-function pagination(state = {}, action) {
-  return state;
-}
+const pagination = combineReducers({
+  starredByUser: paginate({
+    types: [
+      ActionTypes.STARRED_REQUEST,
+      ActionTypes.STARRED_SUCCESS,
+      ActionTypes.STARRED_FAILURE
+    ],
+    mapActionToKey: action => action.login
+  })
+});
 
 const rootReducer = combineReducers({
   entities,
