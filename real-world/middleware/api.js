@@ -60,6 +60,7 @@ repoSchema.define({
 // Schemas for Github API responses.
 export const Schemas = {
   USER: userSchema,
+  USER_ARRAY: arrayOf(userSchema),
   REPO: repoSchema,
   REPO_ARRAY: arrayOf(repoSchema)
 };

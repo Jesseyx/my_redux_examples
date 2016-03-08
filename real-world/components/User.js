@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 export default class User extends Component {
   render() {
     const { login, avatarUrl, name } = this.props.user;
+    
     return (
       <div className="User">
         <Link to={ `/${ login }` }>

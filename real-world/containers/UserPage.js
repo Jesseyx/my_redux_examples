@@ -16,9 +16,11 @@ class UserPage extends Component {
   constructor(props) {
     super(props);
     this.renderRepo = this.renderRepo.bind(this);
+    this.handleLoadMoreClick = this.handleLoadMoreClick.bind(this);
   }
 
-  componentWillMount() {console.log('adadasda------------------------------------------------------------');
+  componentWillMount() {
+    // 只执行一次
     loadData(this.props);
   }
 
@@ -37,6 +39,10 @@ class UserPage extends Component {
     );
   }
 
+  handleLoadMoreClick() {
+    this.props.loadStarred(this.props.login, true);
+  }
+
   render() {
     const { user, login } = this.props;
     if (!user) {
@@ -50,6 +56,7 @@ class UserPage extends Component {
         <hr />
         <List renderItem={ this.renderRepo }
               items={ zip(starredRepos, starredRepoOwners) }
+              onLoadMoreClick={ this.handleLoadMoreClick }
               loadingLabel={ `Loading ${login}’s starred...` }
               { ...starredPagination } />
       </div>

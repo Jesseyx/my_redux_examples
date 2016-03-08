@@ -1,6 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 
 export default class List extends Component {
+
+  renderLoadMore() {
+    const { isFetching, onLoadMoreClick } = this.props;
+    return (
+      <button style={{ fontSize: '150%' }}
+              onClick={ onLoadMoreClick }
+              disabled={ isFetching }>
+        { isFetching ? 'Loading...' : 'Load More' }
+      </button>
+    );
+  }
+
   render() {
     const {
       isFetching, nextPageUrl, pageCount,
@@ -20,7 +32,7 @@ export default class List extends Component {
     return (
       <div>
         { items.map(renderItem) }
-        { pageCount > 0 && !isLastPage }
+        { pageCount > 0 && !isLastPage && this.renderLoadMore() }
       </div>
     );
   }
@@ -32,6 +44,7 @@ List.propTypes = {
   renderItem: PropTypes.func.isRequired,
   items: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
+  onLoadMoreClick: PropTypes.func.isRequired,
   nextPageUrl: PropTypes.string
 };
 
