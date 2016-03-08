@@ -23,6 +23,7 @@ function fetchUser(login) {
 export function loadUser(login, requiredFields = []) {
   return (dispatch, getState) => {
     const user = getState().entities.users[login];
+    // hasOwnProperty 其实没必要判断
     if (user && requiredFields.every(key => user.hasOwnProperty(key))) {
       return null;
     }

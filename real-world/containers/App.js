@@ -12,6 +12,7 @@ class App extends Component {
   }
 
   handleChange(nextValue) {
+    // 历史记录改变后，就会触发 router, router 改变就会涉及组件，再调用组件内部的 componentWillMount 回调
     browserHistory.push(`/${ nextValue }`);
   }
 

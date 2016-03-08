@@ -62,7 +62,25 @@ export default rootReducer;
 //     users: {},
 //     repos: {}
 //   },
+//   // 错误信息
 //   errorMessage: '',
-//   pagination: {},
+//   // 分页信息
+//   pagination: {
+//     // 某个用户的点星情况
+//     starredByUser: {
+//       isFetching: false,
+//       nextPageUrl: undefined,
+//       pageCount: 0,
+//       ids: []
+//     },
+//     // 给项目点星的用户
+//     stargazersByRepo: {
+//       isFetching: false,
+//       nextPageUrl: undefined,
+//       pageCount: 0,
+//       ids: []
+//     }
+//   },
+//   // 路由信息
 //   routing: {}
 // }

@@ -74,7 +74,7 @@ UserPage.propTypes = {
   loadStarred: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state, ownProps) {console.log('mapStateToProps 触发');
   const { login } = ownProps.params;
   const {
     entities: { users, repos },

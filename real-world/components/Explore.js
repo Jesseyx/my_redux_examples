@@ -10,6 +10,7 @@ export default class Explore extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('****************---------这里执行了吗---------****************');
     if (nextProps.value !== this.props.value) {
       this.setInputValue(nextProps.value);
     }

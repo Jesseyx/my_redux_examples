@@ -45,6 +45,7 @@ function callApi(endpoint, schema) {
     });
 }
 
+
 const userSchema = new Schema('users', {
   idAttribute: 'login'
 });
