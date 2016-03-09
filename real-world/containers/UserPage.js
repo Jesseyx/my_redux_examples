@@ -26,6 +26,7 @@ class UserPage extends Component {
 
   // 渲染以后控制吗？？？？？？？？ 是的，因为下面的 login  
   componentWillReceiveProps(nextProps) {
+    // console.log('UserPage-componentWillReceiveProps');
     if (nextProps.login !== this.props.login) {
       loadData(nextProps);
     }
@@ -74,7 +75,7 @@ UserPage.propTypes = {
   loadStarred: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state, ownProps) {console.log('mapStateToProps 触发');
+function mapStateToProps(state, ownProps) {
   const { login } = ownProps.params;
   const {
     entities: { users, repos },
@@ -84,9 +85,6 @@ function mapStateToProps(state, ownProps) {console.log('mapStateToProps 触发')
   const starredPagination = starredByUser[login] || { ids: [] };            // 用户 starred key-object
   const starredRepos = starredPagination.ids.map(id => repos[id]);          // 用户 starred object-array
   const starredRepoOwners = starredRepos.map(repo => users[repo.owner]);    // [ 用户, ... ]
-  console.log('------------------------------------------------------------------------');
-  console.log(users);console.log(starredRepoOwners);
-  console.log('------------------------------------------------------------------------');
 
   return {
     login,

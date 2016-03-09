@@ -7,7 +7,7 @@ import Root from './containers/Root';
 import configureStore from './store/configureStore';
 
 const store = configureStore();
-
+// 将浏览器历史记录改变绑定 store 中
 const history = syncHistoryWithStore(browserHistory, store);
 
 render(

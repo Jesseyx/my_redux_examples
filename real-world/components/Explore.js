@@ -10,7 +10,7 @@ export default class Explore extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('****************---------这里执行了吗---------****************');
+    console.log('Explore-componentWillReceiveProps 改变 router 的时候执行，为了提高性能，下面一定要和以前的 props 对比，看要不要操作');
     if (nextProps.value !== this.props.value) {
       this.setInputValue(nextProps.value);
     }

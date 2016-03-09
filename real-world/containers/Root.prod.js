@@ -5,10 +5,10 @@ import routes from '../routes';
 
 export default class Root extends Component {
   render() {
-    const { store } = this.props;
+    const { store, history } = this.props;
     return (
       <Provider store={ store }>
-        <Router routes={ routes } />
+        <Router routes={ routes } history={ history } />
       </Provider>
     );
   }

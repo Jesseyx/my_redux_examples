@@ -34,13 +34,13 @@ function callApi(endpoint, schema) {
         return Promise.reject(json);
       }
 
-      console.group('没有序列化为驼峰之前');console.log(json);console.groupEnd('没有序列化为驼峰之前');
+      // console.group('没有序列化为驼峰之前');console.log(json);console.groupEnd('没有序列化为驼峰之前');
       const camelizedJson = camelizeKeys(json);
-      console.group('序列化为驼峰之后');console.log(camelizedJson);console.groupEnd('序列化为驼峰之后');
+      // console.group('序列化为驼峰之后');console.log(camelizedJson);console.groupEnd('序列化为驼峰之后');
 
       const nextPageUrl = getNextPageUrl(response);
 
-      console.group('经过schema转换后');console.log(normalize(camelizedJson, schema));console.groupEnd('经过schema转换后');
+      // console.group('经过schema转换后');console.log(normalize(camelizedJson, schema));console.groupEnd('经过schema转换后');
       return Object.assign({}, normalize(camelizedJson, schema), { nextPageUrl });
     });
 }

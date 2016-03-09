@@ -40,6 +40,7 @@ class App extends Component {
   }
 
   render() {
+    // console.log(this.props);
     const { children, inputValue } = this.props;
 
     return (
@@ -64,6 +65,7 @@ App.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
+  // console.log('App-mapStateToProps');console.log(ownProps);
   return {
     errorMessage: state.errorMessage,
     // 获取浏览器地址
@@ -71,6 +73,10 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
+// 连接操作不会改变原来的组件类，反而返回一个新的已与 Redux store 连接的组件类。
+// connect 操作不会改变 react 内部的 props，只是返回了一个被包装过的 component 类，
+// 该类通过 mapStateToProps 最终生成一个 props 在 包装过的组件内维持，
+// 所以 ownProps（react 内部的 props) 和 组件内的 this.props (包装过的组件中的 props) 不同
 export default connect(mapStateToProps, {
   resetErrorMessage
 })(App);
