@@ -10,9 +10,10 @@ const initialState = window.__INITIAL_STATE__;
 // 使用初始 state 创建 Redux store
 const store = configureStore(initialState);
 
-render(
-  <Provider store={ store }>
-    <App />
-  </Provider>,
-  document.getElementById('root')
-);
+// 已经服务器端渲染成了html，客户端其实不需要了
+// render(
+//   <Provider store={ store }>
+//     <App />
+//   </Provider>,
+//   document.getElementById('root')
+// );
