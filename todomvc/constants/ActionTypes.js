@@ -1,11 +1,11 @@
-export ADD_TODO = 'ADD_TODO';
+export const ADD_TODO = 'ADD_TODO';
 
-export DELETE_TODO = 'DELETE_TODO';
+export const DELETE_TODO = 'DELETE_TODO';
 
-export EDIT_TODO = 'EDIT_TODO';
+export const EDIT_TODO = 'EDIT_TODO';
 
-export COMPLETE_TODO = 'COMPLETE_TODO';
+export const COMPLETE_TODO = 'COMPLETE_TODO';
 
-export COMPLETE_ALL = 'COMPLETE_ALL';
+export const COMPLETE_ALL = 'COMPLETE_ALL';
 
-export CLEAR_COMPLETED = 'CLEAR_COMPLETED';
+export const CLEAR_COMPLETED = 'CLEAR_COMPLETED';
