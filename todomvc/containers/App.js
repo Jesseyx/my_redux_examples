@@ -1,26 +1,40 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import * as TodoActions from '../actions';
+import Header from '../components/Header';
+import MainSection from '../components/MainSection';
 
 class App extends Component {
   render() {
+    const { todos, actions } = this.props;
+
     return (
       <div>
-        <h1>哈哈哈哈，我是测试h1</h1>
+        <Header addTodo={ actions.addTodo } />
+        <MainSection todos={ todos } />
       </div>
     )
   }
 }
 
 App.propTypes = {
-
+  todos: PropTypes.array.isRequired
 }
 
 function mapStateToProps(state, ownProps) {
   return {
-
+    todos: state.todos
   }
 }
 
-export default connect(mapStateToProps, {
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(TodoActions, dispatch)
+  }
+}
 
-})(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

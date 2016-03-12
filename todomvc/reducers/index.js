@@ -8,10 +8,12 @@ const rootReducer = combineReducers({
 export default rootReducer;
 
 // state
-// [
-//   {
-//     text: 'the text name',
-//     completed: false,
-//     id: 0
-//   }
-// ]
+// {
+//   todos: [
+//     {
+//       text: 'the text name',
+//       completed: false,
+//       id: 0
+//     }
+//   ]
+// }
