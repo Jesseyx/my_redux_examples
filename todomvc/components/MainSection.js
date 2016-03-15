@@ -11,20 +11,9 @@ class MainSection extends Component {
 
   handleToggleAllClick(e) {
     const checked = e.target.checked;
-    const { todos } = this.props;
-    const notCompletedIds = [];
-    const completedIds = [];
-    todos.map((todo) => {
-      if (todo.completed) {
-        completedIds.push(todo.id);
-      } else {
-        notCompletedIds.push(todo.id);
-      }
-    });
+    const { todos, actions } = this.props;
     if (checked) {
-      notCompletedIds.map((id) => console.log(id));
-    } else {
-      completedIds.map((id) => console.log(id));
+      actions.completeAll();
     }
   }
 
