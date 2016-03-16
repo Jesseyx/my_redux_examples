@@ -1,20 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import TodoItem from './TodoItem';
 import Footer from './Footer';
+import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters';
+
+const TODO_FILTERS = {
+  [SHOW_ALL]: () => true,
+  [SHOW_COMPLETED]: todo => todo.completed,
+  [SHOW_ACTIVE]: todo => !todo.completed
+}
 
 class MainSection extends Component {
 
   constructor(props) {
     super(props);
-    this.handleToggleAllClick = this.handleToggleAllClick.bind(this);
-  }
-
-  handleToggleAllClick(e) {
-    const checked = e.target.checked;
-    const { todos, actions } = this.props;
-    if (checked) {
-      actions.completeAll();
-    }
+    this.state = { filter: SHOW_ALL };
   }
 
   renderToggleAll(completedCount) {
@@ -31,6 +30,9 @@ class MainSection extends Component {
 
   render() {
     const { todos, actions } = this.props;
+    const { filter } = this.state;
+
+    const filteredTodos = todos.filter(TODO_FILTERS[filter]);
 
     const completedCount = todos.reduce((count, todo) => 
       todo.completed ? count + 1 : count,
@@ -42,8 +44,8 @@ class MainSection extends Component {
         { this.renderToggleAll(completedCount) }
         <ul className="todo-list">
           {
-            todos.map(todo =>
-              <TodoItem key={ todo.id } todo={ todo } />
+            filteredTodos.map(todo =>
+              <TodoItem key={ todo.id } todo={ todo } { ...actions } />
             )
           }
         </ul>
