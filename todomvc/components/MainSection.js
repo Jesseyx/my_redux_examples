@@ -17,12 +17,29 @@ class MainSection extends Component {
     }
   }
 
+  renderToggleAll(completedCount) {
+    const { todos, actions } = this.props;
+    if (todos.length > 0) {
+      return (
+        <input className="toggle-all"
+               type="checkbox"
+               checked={ completedCount === todos.length }
+               onChange={ actions.completeAll } />
+      )
+    }
+  }
+
   render() {
-    const { todos } = this.props;
+    const { todos, actions } = this.props;
+
+    const completedCount = todos.reduce((count, todo) => 
+      todo.completed ? count + 1 : count,
+      0
+    );
 
     return (
       <section className="main">
-        <input className="toggle-all" type="checkbox" onClick={ this.handleToggleAllClick } />
+        { this.renderToggleAll(completedCount) }
         <ul className="todo-list">
           {
             todos.map(todo =>
@@ -37,7 +54,8 @@ class MainSection extends Component {
 }
 
 MainSection.propTypes = {
-  todos: PropTypes.array.isRequired
+  todos: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
 }
 
 export default MainSection;
