@@ -13,6 +13,8 @@ class MainSection extends Component {
 
   constructor(props) {
     super(props);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClearCompleted = this.handleClearCompleted.bind(this);
     this.state = { filter: SHOW_ALL };
   }
 
@@ -26,6 +28,30 @@ class MainSection extends Component {
                onChange={ actions.completeAll } />
       )
     }
+  }
+
+  renderFooter(completedCount) {
+    const { todos } = this.props;
+    const { filter } = this.state;
+    const activeCount = todos.length - completedCount;
+
+    if (todos.length) {
+      return (
+        <Footer completedCount={ completedCount }
+                activeCount={ activeCount }
+                filter={ filter }
+                onShow={ this.handleShow }
+                onClearCompleted={ this.handleClearCompleted } />
+      )
+    }
+  }
+
+  handleShow(filter) {
+    this.setState({ filter })
+  }
+
+  handleClearCompleted() {
+    this.props.actions.clearCompleted();
   }
 
   render() {
@@ -49,7 +75,7 @@ class MainSection extends Component {
             )
           }
         </ul>
-        <Footer />
+        { this.renderFooter(completedCount) }
       </section>
     )
   }
