@@ -5,6 +5,11 @@ const initialState = [
     text: 'Use Redux',
     completed: false,
     id: 0
+  },
+  {
+    text: '哈哈',
+    completed: false,
+    id: 1
   }
 ]
 
@@ -39,6 +44,7 @@ export default function todos(state = initialState, action) {
           todo
       )
 
+    // 正反向
     case COMPLETE_ALL:
       const areAllMarked = state.every(todo => todo.completed);
       return state.map(todo =>
