@@ -74,5 +74,9 @@ describe('components', () => {
         expect(props.actions.completeAll).toHaveBeenCalled();
       })
     })
+
+    describe('footer', () => {
+      
+    })
   })
 })
