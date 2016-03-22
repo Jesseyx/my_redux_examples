@@ -76,7 +76,14 @@ describe('components', () => {
     })
 
     describe('footer', () => {
-      
+      it('should render', () => {
+        const { output } = setup();
+        const [ , , footer ] = output.props.children;
+        expect(footer.type).toBe(Footer);
+        expect(footer.props.completedCount).toBe(1);
+        expect(footer.props.activeCount).toBe(1);
+        expect(footer.props.filter).toBe(SHOW_ALL);
+      })
     })
   })
 })
