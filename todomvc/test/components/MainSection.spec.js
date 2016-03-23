@@ -88,7 +88,7 @@ describe('components', () => {
       it('onShow should set the filter', () => {
         const { output, renderer } = setup();
         const [ , , footer ] = output.props.children;
-        foot.props.onShow(SHOW_COMPLETED);
+        footer.props.onShow(SHOW_COMPLETED);
         const updated = renderer.getRenderOutput();
         const [ , , updatedFooter ] = updated.props.children;
         expect(updatedFooter.props.filter).toBe(SHOW_COMPLETED);
@@ -96,6 +96,9 @@ describe('components', () => {
 
       it('onClearCompleted should call clearCompleted', () => {
         const { output, props } = setup();
+        const [ , , footer ] = output.props.children;
+        footer.props.onClearCompleted();
+        expect(props.actions.clearCompleted).toHaveBeenCalled();
       })
     })
   })
