@@ -84,6 +84,19 @@ describe('components', () => {
         expect(footer.props.activeCount).toBe(1);
         expect(footer.props.filter).toBe(SHOW_ALL);
       })
+
+      it('onShow should set the filter', () => {
+        const { output, renderer } = setup();
+        const [ , , footer ] = output.props.children;
+        foot.props.onShow(SHOW_COMPLETED);
+        const updated = renderer.getRenderOutput();
+        const [ , , updatedFooter ] = updated.props.children;
+        expect(updatedFooter.props.filter).toBe(SHOW_COMPLETED);
+      })
+
+      it('onClearCompleted should call clearCompleted', () => {
+        const { output, props } = setup();
+      })
     })
   })
 })
