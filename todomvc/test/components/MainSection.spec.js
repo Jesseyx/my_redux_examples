@@ -101,5 +101,29 @@ describe('components', () => {
         expect(props.actions.clearCompleted).toHaveBeenCalled();
       })
     })
+
+    describe('todo list', () => {
+      it('should render', () => {
+        const { output, props } = setup();
+        const [ , list ] = output.props.children;
+        expect(list.type).toBe('ul');
+        expect(list.props.className).toBe('todo-list');
+        expect(list.props.children.length).toBe(2);
+        list.props.children.forEach((item, i) => {
+          expect(item.type).toBe(TodoItem)
+          expect(item.props.todo).toBe(props.todos[i])
+        })
+      })
+
+      it('should filter items', () => {
+        const { output, renderer, props } = setup();
+        const [ , , footer ] = output.props.children;
+        footer.props.onShow(SHOW_COMPLETED);
+        const updated = renderer.getRenderOutput();
+        const [ , updatedList ] = updated.props.children;
+        expect(updatedList.props.children.length).toBe(1);
+        expect(updatedList.props.children[0].props.todo).toBe(props.todos[1]);
+      })
+    })
   })
 })
